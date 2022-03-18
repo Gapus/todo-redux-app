@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import * as S from "./App.style";
+
+import { useDispatch } from "react-redux";
+import { setUser, clearUser } from "./modules/user";
+
+import InputForm from "./components/form/InputForm";
+import TodoList from "./components/todo/TodoList";
+import Navigation from "./components/navigation/Navigation";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const user = {
+      id: 1004,
+      nickname: "James",
+      profileImage:
+        "http://k.kakaocdn.net/dn/boEp6l/btq6MTNzPgH/mVE7m02pyxfoMLZIb0iJQK/img_640x640.jpg",
+    };
+
+    dispatch(setUser(user));
+    // dispatch(clearUser());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <S.Container>
+      <Navigation />
+      <S.Wrapper>
+        <h1>Redux 로 배우는 Todo List</h1>
+        <InputForm />
+        <TodoList />
+      </S.Wrapper>
+    </S.Container>
   );
 }
 
